@@ -12,7 +12,7 @@ while multiplier <= num:
     # We indent for start of while loop code block
     # this solutions goes from [1 to N]
     total_product = total_product * multiplier
-    # faster way --> total-product
+    # faster way --> total_product *= multiplier
 
     multiplier = multiplier + 1
     # multiplier += 1
