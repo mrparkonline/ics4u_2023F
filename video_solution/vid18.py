@@ -12,3 +12,7 @@ Given an integer input greater than 0 (Assume that your input is greater than 0)
 
 # 1. Get an integer as user input
 num = int(input("Enter an integer greater than 0: "))
+
+# 2. Need to generate all numbers from 1 upto user_input
+for divider in range(1, num+1):
+    print(f"divider variable is: {divider}.")
