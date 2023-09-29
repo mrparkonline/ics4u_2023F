@@ -24,8 +24,14 @@ print(f"Factorial of {num} is {total_product}.")
 answer2 = 1
 
 for i in range(num, 0, -1):
-    answer2 *= num
+    answer2 *= i
 # end of for loop
 
 print(f"Factorial of {num} is {answer2}.")
 
+# Solution 3 --> For Loop going upwards with range ... much easier
+answer3 = 1
+for j in range(1, num+1):
+    answer3 *= j
+
+print(f"Factorial of {num} is {answer3}.")
