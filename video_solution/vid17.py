@@ -10,7 +10,7 @@ multiplier = 1
 while multiplier <= num:
     # We indent for start of while loop code block
     # this solutions goes from [1 to N]
-    total_product = total_product * multiplier;
+    total_product = total_product * multiplier
     # faster way --> total-product
 
     multiplier = multiplier + 1
