@@ -24,7 +24,9 @@ print(f"Factorial of {num} is {total_product}.")
 
 answer2 = 1
 
-for i in range(num, 0, -1):
+for i in range(num, 0, -1): 
+    # range(a,b,step) ... if step is not provided, step is assumed as 1
+    # i is the iterating variable, it will represent each value in our sequence
     answer2 *= i
 # end of for loop
 
