@@ -18,3 +18,23 @@
 #       3b. If the total_sum of found factors < N --> a deficient number
 #       3c. If the total_sum of found factors < N --> a abundant number
 
+total_sum = 0
+
+for num in range(1, 10000):
+    # if num is a perfect number:
+    #   total_sum += num
+    
+    factor_sum = 0 # factor_sum is going to be resetting to 0 at every iteration
+    for divider in range(1, num):
+        if num % divider == 0:
+            # divider is a factor, so add it to factor_sum
+            factor_sum += divider
+    # end of inner for loop
+    if factor_sum == num:
+        # we have a perfect number
+        total_sum += num
+        print(f"{num} is a perfect number.")
+    #else:
+    #    print(f"{num} is a not perfect number.")
+# end of outer for loop
+print(f'The total sum of all perfect numbers under 10,000 is {total_sum}.')
