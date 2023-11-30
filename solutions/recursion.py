@@ -140,4 +140,23 @@ def merge2(a_list, b_list, answer=[]):
             return merge2(a_list, b_list[1:], answer+[b_list[0]])
 # end of merge2()
 
-
+#Q7. Prime Checker
+def is_prime(num):
+    def helper(num, divider):
+        if num == divider:
+            return True
+        else:
+            if num % divider == 0:
+                return False
+            else:
+                return helper(num, divider+2)
+    
+    if num == 1:
+        return False
+    elif num in {2,3}:
+        return True
+    elif num % 2 == 0:
+        return False
+    else:
+        return helper(num, 3)
+# end of is_prime()
