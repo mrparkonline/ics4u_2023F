@@ -1,41 +1,22 @@
 # Recursion Problem Set Solution
 
-'''
-Q1. Factorial ( O(n) → Complexity )
---
-Write a recursive solution to the Factorial Problem.
-Recall That:
-5! = 5 x 4! (4 x 3 x 2 x 1) = 120
-
-'''
-
+# Q1. Non-Tail Factorial Recursive Solution
 def factorial(num):
-    if num in {0,1}: # {0,1} is a set of two values of 0 and 1
-    # Because membership is faster with set, we put those two values in a set
+    if num in {0,1}:
         return 1
-
     else:
         return num * factorial(num-1)
-
-    '''
-    if num == 0:
-        return 1
-    elif num == 1:
-        return 1
-    '''
-
-#print(factorial(5))
+# end of factorial()
 
 # Tail Recursion w. Factorial
-def factorial_t(num, tail=1):
+def factorial2(num, tail=1):
     if num == 0:
         return tail
     else:
-        return factorial_t(num-1, tail*num)
+        return factorial2(num-1, tail*num)
+# end of factorial2()
 
-#print(factorial_t(5))
-
-# Exponentiation /non-tail version
+# Q2. Exponentiation --> non-tail version
 def power(base, exponent):
     if exponent == 0:
         return 1
@@ -43,101 +24,120 @@ def power(base, exponent):
         return base
     else:
         return base * power(base, exponent-1)
-
-'''
-2^4 = 2 * 2^3 == (2 * 2 * 2)
-'''
-
-#print(power(2,4))
+# end of power()
 
 # Exponentiation tail recursion
-def power_t(base, exponent, tail=1):
+def power(base, exponent, tail=1):
     if exponent == 0:
         return tail
     else:
-        return power_t(base, exponent-1, tail*base)
+        return power2(base, exponent-1, tail*base)
+# end of power2()
 
-#print(power_t(2,4))
-
-# Palindrome / non-tail
-def isPalindrome(word):
-    if len(word) == 0:
-        # Empty Strings are palindromes
+# Q3. Palindrome | Assuming our inputs are all constant cases without spaces
+def is_palindrome(word):
+    if len(word) <= 1: # Base Case 1: Empty and Single Length Strings are palindromes
         return True
-    elif len(word) == 1:
-        # single characters are palindromes
-        return True
-    elif len(word) == 2:
-        # two characters are palindromes if they are equal
-        # to each other
-        return word[0] == word[1]
+    elif len(word) <= 3: # Base Case 2: Two/Three Character strings are a palindrome if the first and last are equal
+        return word[0] == word[-1]
+    else: # Recursive Case: All Strings are palindromes if their first and last characters are equal and the inner portion is a palindrome
+        return word[0] == word[-1] and is_palindrome(word[1:-1])
+# end of is_palindrome()
+
+def is_palindrome2(word, tail=True): # We assume all words are palindrome until proven otherwise
+    if not tail: # At any point tail turns False, we can end the loop
+        return tail
+    elif not word: # An empty string is a palindrome, so compare with status of tail
+        return True and tail 
     else:
-        return word[0] == word[-1] and isPalindrome(word[1:-1])
+        # tail is now assigned to the comparison of first and last character
+        # word loses its first and last character
+        return is_palindrome2(word[1:-1], word[0] == word[-1])
+# end of is_palindrome2()
 
-#print(isPalindrome('park'))
-#print(isPalindrome('tacoCat'))
-
-# palindrome w/ Tail Recursion
-def isPalindrome_t(word, tail=True):
-    if not tail: # tail is False!
-        return False
-    elif not word: # pythonic way of writing len(word) == 0
-        return True and tail
-    else:
-        return isPalindrome_t(word[1:-1], (word[0] == word[-1]) and tail)
-
-#print(isPalindrome_t('park'))
-#print(isPalindrome_t('tacocat'))
-
-# Reverse string/list recursively
-def reverser(word):
-    if len(word) in {0,1}: # empty string or a single character
+# Q4. Reverse a String
+def str_reverse(word):
+    if len(word) <= 1:
         return word
     else:
-        return reverser(word[1:]) + word[0]
+        return word[-1] + str_reverse(word[:-1])
+# end of str_reverse()
 
-# print(reverser('park'))
-
-# Tail Recursion: Reverser
-def reverser_t(word, tail=''):
+def str_reverse2(word, result=''):
     if not word:
-        return tail
+        return result
     else:
-        return reverser_t(word[:-1], tail+word[-1])
+        return str_reverse2(word[:-1], result + word[-1])
+# end of str_reverse2()
 
-# print(reverser_t('park'))
-
-def fib(n):
-    if n == 0:
-        return 0
-    elif n == 1:
-        return 1
+# Q5. Maximum Value in an Array
+# Tailed
+def largest(array):
+    def helper(a_list, tail):
+        if not a_list:
+            return tail
+        else:
+            if a_list[0] > tail:
+                return helper(a_list[1:], a_list[0])
+            else:
+                return helper(a_list[1:], tail)
+    # end of helper()
+    if not array:
+        return -1 # error
+    elif len(array) == 1:
+        return array[0]
     else:
-        return fib(n-1) + fib(n-2)
+        return helper(array[1:], array[0])
+# end of largest()
 
-print(10, fib(10))
-print(20, fib(20))
+# Non-Tailed
+def largest2(array):
+    def helper(a_list, start, end):
+        if start == end:
+            return array[start]
+        else:
+            mid = (start+end) // 2
 
-def fib2(n):
-    ''' non-recursive fib '''
-    fib_dict = {0:0, 1:1}
+            left_max = helper(a_list, start, mid)
+            right_max = helper(a_list, mid+1, end)
 
-    if n in fib_dict:
-        return fib_dict[n]
+            if left_max > right_max:
+                return left_max
+            else:
+                return right_max
+    # end of helper()
+    return helper(array, 0, len(array)-1)
+# end of largest2()
+
+# Q6. Merge Two Sorted Lists
+def merge(a_list, b_list):
+    if not a_list and not b_list:
+        # both lists are empty
+        return []
+    elif not a_list:
+        return b_list
+    elif not b_list:
+        return a_list
     else:
-        for value in range(2,n+1):
-            fib_dict[value] = fib_dict[value-1] + fib_dict[value-2]
+        if a_list[0] < b_list[0]:
+            return [a_list[0]] + merge(a_list[1:], b_list)
+        else:
+            return [b_list[0]] + merge(a_list, b_list[1:])
+# end of merge()
 
-        return fib_dict[n]
-
-print(10, fib2(10))
-
-def fib_t(n, t1=1, t2=0):
-    if n == 0:
-        return t2
-    elif n == 1:
-        return t1
+def merge2(a_list, b_list, answer=[]):
+    if not a_list and not b_list:
+        # both lists are empty
+        return answer
+    elif not a_list:
+        return answer + b_list
+    elif not b_list:
+        return answer + a_list
     else:
-        return fib_t(n-1, t1+t2, t1)
+        if a_list[0] < b_list[0]:
+            return merge2(a_list[1:], b_list, answer+[a_list[0]])
+        else:
+            return merge2(a_list, b_list[1:], answer+[b_list[0]])
+# end of merge2()
 
-print(10, fib_t(10))
+
