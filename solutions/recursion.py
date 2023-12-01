@@ -160,3 +160,113 @@ def is_prime(num):
     else:
         return helper(num, 3)
 # end of is_prime()
+
+def is_prime2(num, divider=3, tail=True):
+    if not tail:
+        return False
+    elif num == divider:
+        return tail
+    elif num <= 1:
+        return False
+    elif num in {2,3}:
+        return True
+    elif num % 2 == 0:
+        return False
+    else:
+        if num % divider == 0:
+            return is_prime2(num, divider, False)
+        else:
+            return is_prime2(num, divider+2, True)
+# end of is_prime2()
+
+# Q8. Prime Factors of a Number
+def prime_factors(num, divider=2):
+    if num == 1:
+        return []
+    elif num == divider:
+        return [num]
+    else:
+        if num % divider == 0:
+            return [divider] + prime_factors(num//divider, divider)
+        else:
+            return prime_factors(num, divider+1)
+# end of prime_factors()
+
+def prime_factors2(num, divider=2, tail=[]):
+    if num == 1:
+        return tail
+    elif num == divider:
+        return tail + [num]
+    else:
+        if num % divider == 0:
+            return prime_factors2(num//divider, divider, tail+[divider])
+        else:
+            return prime_factors2(num, divider+1, tail)
+# end of prime_factors2()
+
+#Q9. Climbing Stairs
+def stairs(steps):
+    if steps in {0,1,2}:
+        return steps
+    else:
+        return stairs(steps-1) + stairs(steps-2)
+# end of stairs()
+
+# Climbing Stairs is related to the fibonacci sequence
+def fib_tail(n, fib1=1, fib0=0):
+    if n == 0:
+        return fib0
+    elif n == 1:
+        return fib1
+    else:
+        return fib_tail(n-1, fib1+fib0, fib1)
+# end of fib_tail
+
+# Q10. String Binary Number to Integer Digits
+def to_int(binary):
+    if not binary:
+        return 0
+    elif binary == '1':
+        return 1
+    elif binary == '0':
+        return 0
+    else:
+        if binary[0] == '1':
+            exponent = len(binary)-1
+            return 2**exponent + to_int(binary[1:])
+        else:
+            return to_int(binary[1:])
+# end of to_int()
+
+def to_int2(binary, tail=0):
+    if not binary:
+        return tail
+    else:
+        if binary[0] == '1':
+            exponent = len(binary)-1
+            return to_int(binary[1:], tail + 2**exponent)
+        else:
+            return to_int(binary[1:])
+# end of to_int2()
+
+# Q11. Twenty Questions
+def twentyQ(start=1, end=100, q=0):
+    if q == 20:
+        print("I lose!")
+        return False
+    else:
+        mid = (start+end) // 2
+        user = input(f"Is your number {mid}? (Y/N): ")
+        q = q + 1
+
+        if user in 'Yy':
+            print(f"I win with {q} questions asked!")
+            return True
+        else:
+            user = input(f"Is your number higher or lower than {mid}? (H/L): ")
+            q = q + 1
+            if user in 'Hh':
+                return twentyQ(mid+1, end, q)
+            else:
+                return twentyQ(start, mid-1, q)
+# end of twentyQ()
