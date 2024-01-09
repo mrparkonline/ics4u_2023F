@@ -24,14 +24,17 @@ class Stack:
     def __str__(self):
         if self.isEmpty():
             return "<>"
+        else:
+            output = ", ".join(map(str, self.__storage))
+            return f"<{output}>"
 
-        output = '<'
-        for i, data in enumerate(self.__storage):
-            if i == len(self.__storage)-1:
-                output += f"{data}>"
-            else:
-                output += f"{data}, "
-        return output
+        # output = '<'
+        # for i, data in enumerate(self.__storage):
+        #     if i == len(self.__storage)-1:
+        #         output += f"{data}>"
+        #     else:
+        #         output += f"{data}, "
+        # return output
     
     def __repr__(self):
         return f"<Stack Object @{str(hex(id(self)))}>"
