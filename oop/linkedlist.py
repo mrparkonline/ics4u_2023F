@@ -16,6 +16,10 @@ class LinkedList:
         self.__head = None
         self._size = 0
         # self.__index = 0
+
+    @property
+    def head(self):
+        return self.__head
     
     @property
     def size(self):
@@ -124,6 +128,7 @@ class LinkedList:
             tail = self.__head.next
             self.__head = tail
             self.size -= 1
+        
             
     def addLast(self, value):
         if self.__head is None:
@@ -170,7 +175,3 @@ class LinkedList:
                 current_node = current_node.next
             return result        
 # end of LinkedList
-
-test = LinkedList()
-a = test.toList()
-print(a)
