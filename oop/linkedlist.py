@@ -128,8 +128,7 @@ class LinkedList:
             tail = self.__head.next
             self.__head = tail
             self.size -= 1
-        
-            
+                
     def addLast(self, value):
         if self.__head is None:
             self.size = 1
@@ -175,3 +174,40 @@ class LinkedList:
                 current_node = current_node.next
             return result        
 # end of LinkedList
+
+class Queue(LinkedList):
+    def __init__(self):
+        super().__init__()
+        self.__latest = None
+
+    def enqueue(self, value):
+        if self.isEmpty():
+            self.addFirst(value)
+        elif self.head.next is None:
+            self.head.next = Node(value)
+            self.__latest = self.head.next
+            self.size += 1
+        else:
+            self.__latest.next = Node(value)
+            self.__latest = self.__latest.next
+            self.size += 1
+    
+    def dequeue(self):
+        if self.isEmpty():
+            raise IndexError("Queue is empty.")
+        value = self.head.value
+        self.removeFirst()
+        return value
+    
+    def peek(self):
+        return self.get(0)
+
+test = Queue()
+
+for i in [3,1,4,1,5,9]:
+    test.enqueue(i)
+
+print(test.toList())
+
+while test.size > 0:
+    print(test.dequeue())
