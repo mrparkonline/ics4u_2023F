@@ -1,0 +1,14 @@
+Size of Stack: 0
+Is the stack empty?: True
+--------------------------------
+Pushing Values of: 3, 1, 4, 1, 5, 9 into the stack.
+Current Stack: <3, 1, 4, 1, 5, 9>
+--------------------------------
+Testing __repr__(): <Stack Object @0x169adaecfd0>  
+--------------------------------
+Last value of the stack: 9
+Is the stack empty?: False
+Testing Pop: 9
+v2 list: [5, 1, 4, 1, 3]
+Is the stack empty?: True
+Current Stack: <>
